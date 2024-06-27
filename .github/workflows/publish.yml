@@ -35,6 +35,9 @@ jobs:
       - name: ls
         run: ls
 
+      - name: cat
+        run: cat .\next.config.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
