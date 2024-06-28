@@ -5,7 +5,7 @@ export default function AboutMe() {
         <div>
           <h1>Hello!</h1>
           <h2>My name is Nick.</h2>
-          <h3 className="mb-4">I'm a JavaScript full stack web developer for over 10 years.</h3>
+          <h3 className="mb-4">I&apos;m a JavaScript full stack web developer for over 10 years.</h3>
         </div>
         <div className="w-64">
           <img className="w-full rounded-full" src="/burdo-960.jpg" alt="My image"/>
@@ -26,7 +26,7 @@ export default function AboutMe() {
           <em>application</em>.</p>
 
         <p className="p">Then I met <strong>Angular-2+</strong> - this is a real framework with its own rules and
-          a lot of work "under the hood". And where there is <strong>Angular</strong>, there is
+          a lot of work &ldquo;under the hood&rdquo;. And where there is <strong>Angular</strong>, there is
           <strong>TypeScript</strong>.</p>
 
         <p className="p">Next up was <strong>Vue.js</strong>. I really liked him. And with the advent of version 3
