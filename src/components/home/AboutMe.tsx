@@ -32,8 +32,8 @@ export default function AboutMe() {
         <p className="p">Next up was <strong>Vue.js</strong>. I really liked him. And with the advent of version 3
           and the <strong>Composition API</strong>, I simply fell in love with it.</p>
 
-        <p className="p">The ever-increasing demands of CEOs required new solutions -
-          <strong>SSR</strong> and <strong>SSG</strong>. And frameworks such as <strong>Next.js</strong> (based
+        <p className="p">The ever-increasing demands of CEOs required new solutions - <strong>SSR</strong> and <strong>SSG</strong>.
+          And frameworks such as <strong>Next.js</strong> (based
           on React.js) and <strong>Nuxt.js</strong> (based on Vue.js) appeared. So now the work of a web developer
           is increasingly shifting from simple front-end to <strong>full-stack</strong>.</p>
 
