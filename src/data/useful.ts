@@ -9,4 +9,4 @@ export const links = [
     title: 'Special character table (ru)',
     href: 'https://symbl.cc/ru/html-entities/',
   },
-]
+];

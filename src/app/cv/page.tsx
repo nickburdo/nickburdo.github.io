@@ -1,5 +1,3 @@
 export default function CV() {
-  return (
-    <>CV</>
-  );
+  return <>Coming soon</>;
 }

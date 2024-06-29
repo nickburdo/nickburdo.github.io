@@ -7,11 +7,9 @@ interface Props {
 
 export default function MainLayout({ children }: Props) {
   return (
-    <div className="min-h-screen flex flex-col min-w-[768px]">
+    <div className="flex min-h-screen min-w-[768px] flex-col">
       <Header />
-      <main className="flex-grow container mx-auto p-8">
-        { children }
-      </main>
+      <main className="container mx-auto flex-grow p-8">{children}</main>
     </div>
   );
 }

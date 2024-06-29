@@ -1,4 +1,4 @@
-import { data } from '@/data/how-to/insex';
+import { data } from '@/data/how-to';
 import Link from 'next/link';
 
 type Props = {
@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 
   return posts.map((post) => ({
     slug: post.slug,
-  }))
+  }));
 }
 
 export default function DeployToGithubIO({ params }: Props) {
@@ -18,20 +18,18 @@ export default function DeployToGithubIO({ params }: Props) {
   const post = data.find((p) => p.slug === slug);
 
   if (!post) {
-    return (
-      <div className="p-8 text-center">No data found</div>
-    );
+    return <div className="p-8 text-center">No data found</div>;
   }
 
   const { title, content } = post;
 
   return (
     <article>
-      <header className="flex justify-between items-center">
+      <header className="flex items-center justify-between">
         <h1>{title}</h1>
 
         <Link href="/how-to">
-          <button className="px-4 py-2 border border-transparent hover:border-sky-600 rounded-full whitespace-nowrap">
+          <button className="whitespace-nowrap rounded-full border border-transparent px-4 py-2 hover:border-sky-600">
             &lt;- Back
           </button>
         </Link>
@@ -41,4 +39,3 @@ export default function DeployToGithubIO({ params }: Props) {
     </article>
   );
 }
- 

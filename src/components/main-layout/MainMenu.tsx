@@ -9,8 +9,16 @@ export default function MainMenu() {
     hasChildren ? pathname.startsWith(path) : path === pathname;
   return (
     <nav className="flex gap-4">
-      {mainMenuItems.map(({ title, href, hasChildren}) => (
-        <Link key={title} href={href} className={isActive(href, hasChildren) ? 'bg-white text-sky-800 rounded-full px-4 py-2 font-semibold' : ' px-4 py-2 font-semibold'}>
+      {mainMenuItems.map(({ title, href, hasChildren }) => (
+        <Link
+          key={title}
+          href={href}
+          className={
+            isActive(href, hasChildren)
+              ? 'rounded-full bg-white px-4 py-2 font-semibold text-sky-800'
+              : 'px-4 py-2 font-semibold'
+          }
+        >
           {title}
         </Link>
       ))}

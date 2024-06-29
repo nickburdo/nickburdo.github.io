@@ -1,4 +1,4 @@
-import { data } from '@/data/how-to/insex';
+import { data } from '@/data/how-to';
 import Link from 'next/link';
 
 export default function HowTo() {
@@ -9,19 +9,14 @@ export default function HowTo() {
       <h1>How to&hellip;</h1>
 
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
-            <Link
-              className="link"
-              href={`/how-to/${post.slug}`}
-            >
-              { post.title }
+            <Link className="link" href={`/how-to/${post.slug}`}>
+              {post.title}
             </Link>
           </li>
         ))}
       </ul>
     </>
-
   );
 }
- 
