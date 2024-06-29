@@ -60,6 +60,15 @@ export default function AddPrettierToNextjsProject() {
         </li>
       </ol>
 
+      <h3>UPD</h3>
+      <p>
+        To avoid a Github action error during build execution, change the <code>prepare</code>{' '}
+        command in your <code>package.json</code> file:
+      </p>
+      <pre>{`"scripts": {
+  ...
+  "prepare": "husky install || true"}`}</pre>
+
       <p className="mt-8 text-sm">
         Thanks Ismail Demirbilek for the &nbsp;
         <a
