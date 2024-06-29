@@ -1,7 +1,7 @@
 import AddPrettierToNextjsProject from '@/components/how-to/AddPrettierToNextjsProject';
 import DeployNext14ProjectToGithubioPage from '@/components/how-to/DeployNext14ProjectToGithubioPage';
 
-export const data = [
+export const posts = [
   {
     id: 1,
     slug: 'deploy-next.js-14-project-to-your-github.io-page',
