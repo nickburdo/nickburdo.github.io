@@ -29,19 +29,6 @@ export default function AddPrettierToNextjsProject() {
         </li>
 
         <li className="px-2 py-1">
-          Update <code>.eslintrc.json</code> file as following:
-          {/* prettier-ignore */}
-          <pre>{
-            `{
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:prettier/recommended"
-  ]
-}`
-          }</pre>
-        </li>
-
-        <li className="px-2 py-1">
           Open the <code>package.json</code> file and modify scripts like the below:
           {/* prettier-ignore */}
           <pre>{
@@ -70,7 +57,7 @@ export default function AddPrettierToNextjsProject() {
   "prepare": "husky install || true"}`}</pre>
 
       <p className="mt-8 text-sm">
-        Thanks Ismail Demirbilek for the &nbsp;
+        Thanks <strong>Ismail Demirbilek</strong> for the &nbsp;
         <a
           className="link"
           target="_blank"
@@ -82,7 +69,7 @@ export default function AddPrettierToNextjsProject() {
       </p>
 
       <p className="text-sm">
-        Thanks inapeace0 for the &nbsp;
+        Thanks <strong>inapeace0</strong> for the &nbsp;
         <a
           className="link"
           target="_blank"
@@ -90,6 +77,18 @@ export default function AddPrettierToNextjsProject() {
           href="https://medium.com/@rifantechguy55/setting-up-a-next-js-13-project-with-eslint-and-prettier-735c3ccfd26c"
         >
           Setting Up a Next.js 13 Project with ESLint and Prettier
+        </a>
+      </p>
+
+      <p className="text-sm">
+        Thanks <strong>JSDev Space</strong> for the &nbsp;
+        <a
+          className="link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://dev.to/jsdevspace/setup-nextjs-14-project-with-eslint-prettier-tailwind-css-226j"
+        >
+          Setup Next.js 14 project with Eslint + Prettier + Tailwind CSS
         </a>
       </p>
     </div>
