@@ -1,0 +1,72 @@
+:root {
+  color-scheme: light;
+  --color-white: #ffffff;
+  --color-bg: #eef7ff;
+  --color-bg-start: #f7fbff;
+  --color-surface: #ffffff;
+  --color-surface-soft: rgba(255, 255, 255, 0.82);
+  --color-surface-tint: rgba(255, 255, 255, 0.42);
+  --color-header-bg: rgba(238, 247, 255, 0.78);
+  --color-primary: #5b8def;
+  --color-primary-soft: #d9ebff;
+  --color-primary-shadow: rgba(91, 141, 239, 0.34);
+  --color-border: rgba(91, 141, 239, 0.18);
+  --color-text: #2d3748;
+  --color-heading: #17233c;
+  --color-muted: #718096;
+  --color-accent: #f4a261;
+  --color-shadow: rgba(23, 35, 60, 0.08);
+  --color-avatar-shadow: rgba(23, 35, 60, 0.16);
+  --color-background-glow: rgba(91, 141, 239, 0.18);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-text);
+  background:
+    radial-gradient(
+      circle at top left,
+      var(--color-background-glow),
+      transparent 32rem
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-bg-start) 0%,
+      var(--color-bg) 38%,
+      var(--color-white) 100%
+    );
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt {
+  margin: 0;
+  min-height: 100%;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
