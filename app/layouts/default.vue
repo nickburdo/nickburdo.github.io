@@ -353,7 +353,7 @@ onBeforeUnmount(() => {
     </main>
     <footer class="site-footer">
       <div class="footer-inner">
-        <p>&copy; 2026 Nick Burdo. Built with HTML, CSS and later Vue.</p>
+        <p>&copy; 2026 Nick Burdo. Built with Nuxt, Vue, and CSS.</p>
       </div>
       <nav class="mobile-nav" aria-label="Mobile navigation">
         <a

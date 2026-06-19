@@ -13,7 +13,7 @@
             AI-powered product features.
           </p>
           <div class="hero-actions">
-            <NuxtLink class="button button-primary" to="/cv">Viev CV</NuxtLink>
+            <NuxtLink class="button button-primary" to="/cv">View CV</NuxtLink>
             <a class="button button-secondary" href="#projects">Projects</a>
             <a class="button button-link" href="#contact">Contact</a>
           </div>

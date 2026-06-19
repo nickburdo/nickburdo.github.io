@@ -3,7 +3,7 @@
     <div class="container contact-card">
       <p class="eyebrow">Contact</p>
       <h2>Let's talk.</h2>
-      <p>The fastest way to reach me is by email or telegram.</p>
+      <p>The fastest way to reach me is by email or Telegram.</p>
 
       <div class="contact-links">
         <a href="mailto:nikburdo@gmail.com">Email</a>
