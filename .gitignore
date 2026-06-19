@@ -24,3 +24,4 @@ logs
 !.env.example
 /AGENTS.locale.md
 /AGENTS.md
+docs/
