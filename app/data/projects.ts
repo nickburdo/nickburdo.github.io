@@ -27,159 +27,184 @@ export const projects: ProjectItem[] = [
     slug: 'job-tracker',
     title: 'Job Tracker',
     summary:
-      'A focused workflow tool for tracking applications, interviews, and hiring pipeline progress.',
+      'A personal application management tool designed to organize vacancies, track interview stages, and maintain a clear overview of the hiring pipeline.',
     stack: [
       'Nuxt 4',
       'TypeScript',
       'Prisma',
       'Supabase',
       'PostgreSQL',
+      'RLS',
       'Tailwind CSS',
     ],
     screenshots: [
       {
-        src: '/project-placeholder.svg',
-        alt: 'Job Tracker dashboard placeholder',
+        src: '/data/projects/job-tracker/dashboard.jpg',
         featured: true,
+        alt: 'Job search overview dashboard',
         caption:
-          'Dashboard overview with active vacancies and interview stages.',
+          'Overview dashboard with application statistics, follow-up queue, and recent activity.',
       },
       {
-        src: '/project-placeholder.svg',
-        alt: 'Job Tracker candidate card placeholder',
+        src: '/data/projects/job-tracker/analytics.jpg',
+        alt: 'Application stage analytics',
         caption:
-          'Detailed application card with notes, status history, and follow-ups.',
+          'Stage distribution and pipeline analytics showing progress across the hiring process.',
       },
       {
-        src: '/project-placeholder.svg',
-        alt: 'Job Tracker analytics placeholder',
+        src: '/data/projects/job-tracker/applications.jpg',
+        alt: 'Applications list with filters and search',
         caption:
-          'Lightweight reporting view for conversion and pipeline visibility.',
+          'Applications table with search, status filters, interview stages, and follow-up dates.',
       },
     ],
     implemented: [
-      'Structured vacancy and application management flows.',
-      'Interview stage tracking with quick status updates.',
-      'Notes, reminders, and contextual metadata for each opportunity.',
-      'Dashboard views for progress, activity, and decision-making.',
+      'Created CRUD flows for managing job applications and interview stages.',
+      'Added filtering, sorting, and search capabilities for fast navigation.',
+      'Implemented notes, salary ranges, follow-up dates, and metadata for each application.',
+      'Built dashboard widgets to visualize the current state of the job search process.',
+      'Added demo mode and role-based access with Supabase authentication.',
     ],
     technicalDecisions: [
-      'Split the UI into reusable, state-aware modules to keep growth manageable.',
-      'Used schema-driven backend models to support future reporting features.',
-      'Kept user interactions fast with optimistic updates for common actions.',
-      'Designed the page hierarchy around quick scanning on both desktop and mobile.',
+      'Chose Nuxt 4 and TypeScript for maintainability and type safety.',
+      'Used Prisma with PostgreSQL to keep the data layer simple and scalable.',
+      'Implemented Row Level Security policies in Supabase to separate demo and authenticated users.',
+      'Structured API handlers and UI components to simplify future feature additions.',
+      'Focused on responsive layouts and quick interactions for everyday use.',
     ],
     lessonsLearned:
-      'How small workflow tools benefit from sharp prioritization and simple information architecture. How to balance product polish with maintainable data modeling. How to keep CRUD-heavy interfaces feeling responsive and lightweight.',
+      'Building productivity tools taught me how important information architecture is. I gained practical experience with Prisma migrations, Supabase authentication, Row Level Security, and designing CRUD-heavy interfaces that remain responsive and easy to navigate.',
     links: [
       {
         label: 'View on GitHub',
-        href: 'https://github.com/example/job-tracker',
+        href: 'https://github.com/nickburdo/job-tracker',
       },
-      { label: 'Live Demo', href: 'https://demo.example.com/job-tracker' },
+      { label: 'Live Demo', href: 'https://job-tracker-b86q.onrender.com/' },
     ],
   },
   {
     slug: 'health-monitor',
     title: 'Health Monitor',
     summary:
-      'A compact health tracking app for daily metrics, personal routines, and simple trend visibility.',
-    stack: ['Nuxt 4', 'Vue 3', 'TypeScript', 'Supabase', 'Charting', 'PWA'],
+      'A personal health tracking application for monitoring blood glucose, blood pressure, weight, and symptoms with simple visual trends and quick daily data entry.',
+    stack: [
+      'Nuxt 4',
+      'Vue 3',
+      'TypeScript',
+      'Prisma',
+      'Supabase',
+      'PostgreSQL',
+      'PWA',
+    ],
     screenshots: [
       {
-        src: '/project-placeholder.svg',
-        alt: 'Health Monitor home screen placeholder',
+        src: '/data/projects/health-monitor/dashboard.jpg',
         featured: true,
-        caption: 'Daily summary with quick inputs for key health signals.',
-      },
-      {
-        src: '/project-placeholder.svg',
-        alt: 'Health Monitor charts placeholder',
+        alt: 'Health summary dashboard',
         caption:
-          'Weekly and monthly visual patterns for user-friendly reporting.',
+          'Dashboard showing recent readings, summary cards, and trend charts for key health metrics.',
       },
       {
-        src: '/project-placeholder.svg',
-        alt: 'Health Monitor settings placeholder',
-        caption: 'Custom tracking preferences and lightweight personalization.',
+        src: '/data/projects/health-monitor/glucose.jpg',
+        alt: 'Blood glucose trends and history',
+        caption:
+          'Blood glucose tracking with fasting and post-meal measurements visualized over time.',
+      },
+      {
+        src: '/data/projects/health-monitor/symptoms.jpg',
+        alt: 'Symptoms history and frequency',
+        caption:
+          'Symptom frequency overview and detailed history for the selected period.',
       },
     ],
     implemented: [
-      'Fast entry flows for recurring health metrics.',
-      'Basic filtering and trend visualization across selected periods.',
-      'PWA-ready structure for repeat mobile use.',
-      'Clear separation between dashboard, history, and settings areas.',
+      'Added separate tracking flows for glucose, blood pressure, weight, and symptoms.',
+      'Built dashboards with charts and statistics for different periods.',
+      'Implemented quick-entry forms optimized for frequent use.',
+      'Added filtering and historical views for long-term tracking.',
+      'Prepared the application as a Progressive Web App for mobile devices.',
     ],
     technicalDecisions: [
-      'Used a lightweight component structure to keep the app fast on mobile devices.',
-      'Designed chart rendering around readability instead of heavy configuration.',
-      'Kept state transitions predictable to support future offline behavior.',
-      'Optimized interactions for frequent repeat use rather than rare long sessions.',
+      'Used Nuxt 4 and TypeScript to keep the codebase simple and maintainable.',
+      'Preferred lightweight SVG charts instead of heavy chart libraries.',
+      'Organized features into independent modules to reduce coupling.',
+      'Focused on mobile usability and fast repeat interactions.',
+      'Designed data structures to support future extensions without major refactoring.',
     ],
     lessonsLearned:
-      'Health-related products need calm UX and very clear hierarchy. Small data-entry interfaces become much stronger when friction is aggressively reduced. Consistency matters more than feature count in habit-based products.',
+      'This project reinforced the importance of calm UX and consistency in habit-oriented applications. I learned that reducing friction during data entry is often more valuable than adding more features.',
     links: [
       {
         label: 'View on GitHub',
-        href: 'https://github.com/example/health-monitor',
+        href: 'https://github.com/nickburdo/health-monitor',
       },
-      { label: 'Live Demo', href: 'https://demo.example.com/health-monitor' },
+      { label: 'Live Demo', href: 'https://health-monitor-7w8v.onrender.com/' },
     ],
   },
   {
     slug: 'hood',
     title: 'The Hood',
     summary:
-      'A social and recruitment platform built around community, profiles, matching, and platform-scale product flows.',
+      'A large-scale social and recruitment platform serving maritime professionals with social networking, job management, and candidate matching features.',
     stack: [
       'Next.js',
       'React',
       'TypeScript',
       'Material UI',
       'REST API',
-      'Product Analytics',
+      'TanStack Query',
     ],
     screenshots: [
       {
-        src: '/project-placeholder.svg',
-        alt: 'The Hood feed placeholder',
+        src: '/data/projects/hood/dashboard.jpg',
         featured: true,
+        alt: 'Recruitment dashboard for job portals',
         caption:
-          'Social feed and content discovery designed for high-frequency use.',
+          'Recruitment dashboard with job statistics, applicant stages, and hiring performance metrics.',
       },
       {
-        src: '/project-placeholder.svg',
-        alt: 'The Hood profile placeholder',
+        src: '/data/projects/hood/job-portal-overview.jpg',
+        alt: 'Company portal overview',
         caption:
-          'Profile and recruitment surfaces combining identity and opportunity signals.',
+          'Portal overview with company information and recruitment team management.',
       },
       {
-        src: '/project-placeholder.svg',
-        alt: 'The Hood messaging placeholder',
+        src: '/data/projects/hood/career-hub-jobs-list.jpg',
+        alt: 'Job management table',
         caption:
-          'Communication and workflow views inside a larger platform context.',
+          'Job management workspace with search, filters, and configurable columns.',
+      },
+      {
+        src: '/data/projects/hood/timeline.jpg',
+        alt: 'Community timeline feed',
+        caption:
+          'Social timeline where members share updates, opportunities, and community posts.',
+      },
+      {
+        src: '/data/projects/hood/social-media-jobs-list.jpg',
+        alt: 'Candidate job feed',
+        caption:
+          'Candidate-facing job feed with search and quick access to open positions.',
       },
     ],
     implemented: [
-      'Reusable front-end modules for core platform experiences.',
-      'Profile, messaging, and recruitment-oriented user flows.',
-      'API-driven interfaces for dynamic content and account data.',
-      'Product-facing improvements for usability and performance.',
+      'Developed and maintained multiple front-end modules across the platform.',
+      'Built interfaces for profiles, feeds, job management, and recruitment workflows.',
+      'Integrated REST APIs and optimized data-driven pages.',
+      'Improved usability and performance of existing features.',
+      'Contributed to scalable UI patterns used across different parts of the product.',
     ],
     technicalDecisions: [
-      'Favored reusable UI patterns to keep a large product surface consistent.',
-      'Worked with modular state boundaries to reduce cross-feature coupling.',
-      'Approached performance as an ongoing product concern rather than a final pass.',
-      'Aligned implementation decisions with long-term maintainability in a growing platform.',
+      'Relied on reusable React components and Material UI to maintain consistency.',
+      'Used modular architecture to isolate features and reduce complexity.',
+      'Treated performance optimization as an ongoing process rather than a final step.',
+      'Collaborated closely with backend developers and product stakeholders.',
+      'Focused on maintainability and scalability for a continuously evolving product.',
     ],
     lessonsLearned:
-      'Large product ecosystems reward consistency more than isolated feature speed. Cross-functional communication is critical when a platform touches many user journeys. Scalable front-end architecture needs both code discipline and product context.',
+      'Working on a large product taught me the importance of consistency, communication, and long-term thinking. Large applications benefit more from predictable architecture and reusable patterns than from isolated optimizations.',
     links: [
-      {
-        label: 'View on GitHub',
-        href: 'https://github.com/example/the-hood',
-      },
-      { label: 'Live Demo', href: 'https://demo.example.com/the-hood' },
+      { label: 'Welcome aboard!', href: 'https://social.the-hood.com/auth' },
     ],
   },
 ];

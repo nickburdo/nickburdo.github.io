@@ -4,18 +4,25 @@
       <div>
         <p class="eyebrow">About</p>
         <h2>
-          Experienced frontend developer focused on practical product work.
+          10+ years building web products for startups and enterprise teams.
         </h2>
       </div>
 
       <div class="about-text">
+        <h3>Experience</h3>
         <p>
-          Frontend developer with 10+ years of experience building web
-          applications for startups and enterprise teams.
+          10+ years of experience building scalable web applications for
+          startups and enterprise teams.
         </p>
+        <h3>Stack</h3>
         <p>
-          Currently focused on modern React/Nuxt ecosystems and practical AI
-          integration into web products.
+          React, Next.js, TypeScript, TanStack Query, Material UI, and modern
+          Vue/Nuxt ecosystems.
+        </p>
+        <h3>Focus</h3>
+        <p>
+          Building maintainable products with a focus on performance, user
+          experience, and practical AI integration.
         </p>
       </div>
     </div>

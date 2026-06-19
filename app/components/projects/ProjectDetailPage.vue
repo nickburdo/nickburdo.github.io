@@ -8,7 +8,8 @@ const project = props.project;
 
 const activeScreenshot = ref<ProjectScreenshot | null>(null);
 const featuredScreenshot = computed(
-  () => project.screenshots.find((shot) => shot.featured) ?? project.screenshots[0],
+  () =>
+    project.screenshots.find((shot) => shot.featured) ?? project.screenshots[0],
 );
 const galleryScreenshots = computed(() =>
   project.screenshots.filter((shot) => shot !== featuredScreenshot.value),
@@ -81,7 +82,10 @@ onBeforeUnmount(() => {
           <p class="project-eyebrow">Screenshots</p>
         </div>
 
-        <figure v-if="featuredScreenshot" class="project-shot project-shot-featured">
+        <figure
+          v-if="featuredScreenshot"
+          class="project-shot project-shot-featured"
+        >
           <button
             class="project-shot-button"
             :class="{ 'project-shot-button-featured': true }"
@@ -102,7 +106,11 @@ onBeforeUnmount(() => {
             :key="shot.alt"
             class="project-shot"
           >
-            <button class="project-shot-button" type="button" @click="openLightbox(shot)">
+            <button
+              class="project-shot-button"
+              type="button"
+              @click="openLightbox(shot)"
+            >
               <img :src="shot.src" :alt="shot.alt" />
             </button>
           </figure>
@@ -116,7 +124,11 @@ onBeforeUnmount(() => {
           <p class="project-eyebrow">Features</p>
           <ul class="project-list project-list-check">
             <li v-for="item in project.implemented" :key="item">
-              <svg class="project-list-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <svg
+                class="project-list-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
                 <path d="m9.2 16.2-4.2-4.2 1.4-1.4 2.8 2.8 8.1-8.1 1.4 1.4z" />
               </svg>
               {{ item }}
@@ -128,8 +140,14 @@ onBeforeUnmount(() => {
           <p class="project-eyebrow">Engineering</p>
           <ul class="project-list project-list-arrow">
             <li v-for="item in project.technicalDecisions" :key="item">
-              <svg class="project-list-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 11h11.2L13 7.8 14.4 6.4 20.4 12.4 14.4 18.4 13 17l3.2-3.2H5z" />
+              <svg
+                class="project-list-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 11h11.2L13 7.8 14.4 6.4 20.4 12.4 14.4 18.4 13 17l3.2-3.2H5z"
+                />
               </svg>
               {{ item }}
             </li>
@@ -148,7 +166,7 @@ onBeforeUnmount(() => {
     </section>
 
     <Teleport to="body">
-    <Transition name="lightbox">
+      <Transition name="lightbox">
         <div
           v-if="activeScreenshot"
           class="project-lightbox"
@@ -158,7 +176,11 @@ onBeforeUnmount(() => {
           @click.self="closeLightbox"
         >
           <div class="project-lightbox-panel">
-            <button class="project-lightbox-close" type="button" @click="closeLightbox">
+            <button
+              class="project-lightbox-close"
+              type="button"
+              @click="closeLightbox"
+            >
               Close
             </button>
             <img :src="activeScreenshot.src" :alt="activeScreenshot.alt" />
@@ -367,8 +389,7 @@ h2 {
 
 .project-shot img {
   width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
+  aspect-ratio: 16 / 9;
 }
 
 .project-shot figcaption {
