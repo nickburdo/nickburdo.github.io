@@ -87,15 +87,7 @@ export const projects: ProjectItem[] = [
     title: 'Health Monitor',
     summary:
       'A personal health tracking application for monitoring blood glucose, blood pressure, weight, and symptoms with simple visual trends and quick daily data entry.',
-    stack: [
-      'Nuxt 4',
-      'Vue 3',
-      'TypeScript',
-      'Prisma',
-      'Supabase',
-      'PostgreSQL',
-      'PWA',
-    ],
+    stack: ['Nuxt 4', 'Vue 3', 'TypeScript', 'IndexDB'],
     screenshots: [
       {
         src: '/data/projects/health-monitor/dashboard.jpg',
