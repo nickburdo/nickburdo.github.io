@@ -28,15 +28,7 @@ export const projects: ProjectItem[] = [
     title: 'Job Tracker',
     summary:
       'A personal application management tool designed to organize vacancies, track interview stages, and maintain a clear overview of the hiring pipeline.',
-    stack: [
-      'Nuxt 4',
-      'TypeScript',
-      'Prisma',
-      'Supabase',
-      'PostgreSQL',
-      'RLS',
-      'Tailwind CSS',
-    ],
+    stack: ['Nuxt 4', 'Vue 3', 'TypeScript', 'IndexDB'],
     screenshots: [
       {
         src: '/data/projects/job-tracker/dashboard.jpg',
@@ -79,7 +71,7 @@ export const projects: ProjectItem[] = [
         label: 'View on GitHub',
         href: 'https://github.com/nickburdo/job-tracker',
       },
-      { label: 'Live Demo', href: 'https://job-tracker-b86q.onrender.com/' },
+      { label: 'Live Demo', href: 'https://job-tracker-new.pages.dev/' },
     ],
   },
   {
