@@ -130,7 +130,7 @@ export const projects: ProjectItem[] = [
         label: 'View on GitHub',
         href: 'https://github.com/nickburdo/health-monitor',
       },
-      { label: 'Live Demo', href: 'https://health-monitor-7w8v.onrender.com/' },
+      { label: 'Live Demo', href: 'https://health-monitor-new.pages.dev/' },
     ],
   },
   {
