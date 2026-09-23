@@ -4,9 +4,10 @@
 
 **Goal:** Replace the first "Coming soon" placeholder in the home page Notes
 section with a real, published mini-blog article ("Harness Engineering"),
-rendered on its own page at `/notes/harness-engineering`, and establish the
+rendered on its own page at `/notes/harness-engineering`, establish the
 reusable pattern (data registry + markdown rendering + detail page) that
-future notes will follow.
+future notes will follow, and write down that pattern as a short Russian
+how-to guide (`docs/notes/`) so future articles get added the same way.
 
 **Architecture:** Mirrors the existing Projects pattern 1:1: a typed data
 registry (`app/data/notes.ts`) holding per-note metadata plus the raw
@@ -56,6 +57,11 @@ decisions reached there are captured below.
   inline (no note behind them yet).
 - **No `/notes` index page.** Out of scope — same as there being no
   `/projects` index; the home page section is the index.
+- **A how-to guide gets written**, in Russian, at
+  `docs/notes/how-to-add-an-article.md`, documenting exactly this
+  process (file → registry entry → optional home-card wiring → verify).
+  Future articles are added by following that guide, not by re-deriving
+  the pattern from this plan or from the code each time.
 
 ## Global Constraints
 
@@ -537,7 +543,128 @@ git commit -m "Document the notes data flow and /notes/:slug route"
 
 ---
 
-### Task 7: Full Definition of Done and branch review
+### Task 7: Write the "how to add an article" guide
+
+**Files:**
+- Create: `docs/notes/how-to-add-an-article.md`
+
+This step comes after Tasks 1–6 on purpose: the guide documents the
+pattern by pointing at the real files/paths that now exist, instead of
+describing something not yet built.
+
+- [ ] **Step 1: Write the guide**
+
+```markdown
+# Как добавить статью в мини-блог
+
+Одна статья = один `.md`-файл в `app/data/notes/` + одна запись в
+реестре `app/data/notes.ts`. Если статья должна сразу появиться на
+главной странице — плюс одна ручная правка в `HomeNotesSection.vue`.
+
+## 1. Подготовь файл статьи
+
+- Положи файл в `app/data/notes/<slug>.md`.
+- **Слаг = имя файла без расширения.** Например, `my-next-article.md` →
+  URL `/notes/my-next-article`. Отдельно придумывать слаг не нужно —
+  если нужен другой URL, просто назови файл иначе.
+- Статья должна начинаться **ровно с одного** заголовка первого уровня
+  (`# Заголовок`) — он становится заголовком страницы. Для остальной
+  структуры используй `##`/`###`, второй `# `-заголовок в файле
+  недопустим.
+- Обычный Markdown — заголовки, списки, таблицы, code-блоки
+  (` ```lang `), ссылки — всё это уже рендерится корректно.
+
+## 2. Зарегистрируй статью в `app/data/notes.ts`
+
+Добавь импорт файла и новую запись в массив `notes`:
+
+```ts
+import myNextArticleContent from './notes/my-next-article.md?raw';
+
+// ...внутри массива notes:
+{
+  slug: 'my-next-article',
+  title: 'Заголовок карточки',
+  category: 'Категория',
+  excerpt: 'Короткое описание для карточки на главной (1-2 предложения).',
+  content: myNextArticleContent,
+},
+```
+
+Поля:
+- `slug` — должен буквально совпадать с именем файла без `.md`.
+- `title` / `category` / `excerpt` — идут на карточку на главной
+  странице (см. шаг 3); текст самой статьи они не переопределяют.
+- `content` — `?raw`-импорт того самого `.md`-файла.
+
+После этого шага статья уже доступна по адресу `/notes/<slug>` —
+страница генерируется автоматически: `app/pages/notes/[slug].vue`
+резолвит слаг через `getNoteBySlug` без дополнительных правок.
+
+## 3. (опционально) Вынеси статью на главную
+
+Карточки на главной (`HomeNotesSection.vue`) сейчас не генерируются
+автоматически из всего реестра — секция показывает одну featured-статью
+(реальная ссылка) и отдельные inline-заглушки "Coming soon" под будущие
+темы. Чтобы новая статья появилась на главной:
+
+1. Реши, какую заглушку из `comingSoonNotes` она заменяет (или добавь
+   новый блок).
+2. В шаблоне замени `<article class="note-card">` этой заглушки на
+   карточку со ссылкой:
+
+```vue
+<article class="note-card">
+  <span class="note-date">{{ myNextArticle.category }}</span>
+  <h3>{{ myNextArticle.title }}</h3>
+  <p>{{ myNextArticle.excerpt }}</p>
+  <NuxtLink :to="`/notes/${myNextArticle.slug}`" class="note-link">
+    Read note
+  </NuxtLink>
+</article>
+```
+
+3. В `<script setup>` импортируй `getNoteBySlug` из `~/data/notes` и
+   добавь `const myNextArticle = getNoteBySlug('my-next-article')!;`.
+
+Это ручной шаг — карточки на главной не выводятся автоматическим
+`v-for` по всему реестру. Если статей станет много, стоит отдельно
+обсудить переход на полностью автоматический список.
+
+## 4. Проверь
+
+```bash
+npx eslint .
+npx nuxi typecheck
+npm run generate
+```
+
+Всё должно пройти чисто — новый роут `/notes/<slug>` появится среди
+пререндеренных.
+
+## См. также
+
+- `docs/architecture.md` — общее устройство слоя данных и презентации.
+- `docs/plans/notes-first-article-plan.md` — план, в рамках которого
+  появился этот паттерн (первая статья, Harness Engineering).
+```
+
+- [ ] **Step 2: Verify**
+
+Run: `npx eslint .`
+Expected: no errors (Markdown files aren't linted by this project's
+ESLint config, but confirm the command still runs clean overall).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add docs/notes/how-to-add-an-article.md
+git commit -m "Add guide for adding future mini-blog articles"
+```
+
+---
+
+### Task 8: Full Definition of Done and branch review
 
 **Files:** none (verification only)
 
@@ -563,7 +690,7 @@ Expected: all routes prerender, including the new
 - [ ] **Step 4: Review the diff**
 
 Run: `git diff main --stat`
-Expected: only the files listed in Tasks 1–6 — no `docs/model/`, no
+Expected: only the files listed in Tasks 1–7 — no `docs/model/`, no
 secrets, no unrelated files.
 
 - [ ] **Step 5: Push the branch**
