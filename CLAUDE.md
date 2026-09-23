@@ -31,9 +31,8 @@ cards / CV / notes content is inlined in components, not sourced from
 
 ## Code style
 
-- Hand-written scoped CSS + tokens from `app/styles.css`. `@nuxt/ui` and
-  Tailwind are installed but unused — match the existing style, don't
-  introduce them without discussion.
+- Hand-written scoped CSS + tokens from `app/styles.css`. No UI kit or
+  Tailwind — don't introduce them without discussion.
 - Shared utility classes: `.container`, `.section`, `.section-soft`,
   `.section-heading`, `.eyebrow`.
 - Breakpoints: 860 / 767 / 520px. Light theme only.
