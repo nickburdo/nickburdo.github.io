@@ -3,14 +3,8 @@
 ## Working agreements
 
 - Reply briefly and clearly.
-- User-facing text (questions, work reports) in Russian; internal notes and
-  code comments in English.
-- Do not start the dev server unless explicitly asked.
-- `prepare-next` ("Prepare for a new chat"): write `docs/project-state.md`
-  with a handoff summary.
-- `continue-last` ("Continue the previous chat"): read this file and
-  `docs/project-state.md`, then continue from there.
-- Warn briefly when the conversation is getting too large.
+- User-facing text (questions, work reports) in Russian; internal notes in
+  English.
 
 ## Project
 
@@ -58,4 +52,4 @@ cards / CV / notes content is inlined in components, not sourced from
 - `docs/plans/` — feature/content plans (portfolio, CV redesign, SEO)
 - `docs/projects-solution.md` — project detail page content structure
 - `docs/model/` — original HTML/CSS prototype and full resume source
-- `docs/project-state.md` — handoff notes between chats (created on demand)
+  (gitignored, local reference only)
