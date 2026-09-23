@@ -22,6 +22,6 @@ logs
 .env
 .env.*
 !.env.example
-/AGENTS.locale.md
-/AGENTS.md
-docs/
+
+# Local design reference material, not published
+docs/model/
