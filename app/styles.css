@@ -54,6 +54,14 @@ html {
   scroll-padding-top: 96px;
 }
 
+/* Matches the mobile scroll offset used in layouts/default.vue,
+   where the sticky header is hidden below 767px. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 24px;
+  }
+}
+
 body,
 h1,
 h2,
