@@ -110,22 +110,31 @@ decisions reached there are captured below.
 **Interfaces:**
 - Produces: `markdown-it` importable as `import MarkdownIt from 'markdown-it'` with types from `@types/markdown-it`, available to later tasks.
 
-- [ ] **Step 1: Install the dependency**
+- [x] **Step 1: Install the dependency**
 
 Run: `npm install markdown-it @types/markdown-it`
 
-- [ ] **Step 2: Verify it landed in `package.json`**
+- [x] **Step 2: Verify it landed in `package.json`**
 
 Expected: `dependencies` now includes `"markdown-it": "^<version>"` and
 `devDependencies` includes `"@types/markdown-it": "^<version>"`
 (alphabetical order in each list, matching the file's existing style).
 
-- [ ] **Step 3: Commit**
+> **Ruling:** the plain install put `@types/markdown-it` in
+> `dependencies` (no `-D` flag). Re-ran as `npm uninstall @types/markdown-it`
+> then `npm install -D @types/markdown-it` to match the Expected line and
+> project convention (type packages are dev-only). Cost if left wrong:
+> negligible (extra type package shipped in prod deps), but zero cost to
+> fix, so fixed.
+
+- [x] **Step 3: Commit**
 
 ```bash
 git add package.json package-lock.json
 git commit -m "Add markdown-it for rendering mini-blog note content"
 ```
+
+Landed as `18632b7`.
 
 ---
 
@@ -138,7 +147,7 @@ git commit -m "Add markdown-it for rendering mini-blog note content"
 - Consumes: `app/data/notes/harness-engineering.md` (raw file, via `?raw` import).
 - Produces: `type NoteItem = { slug: string; title: string; category: string; excerpt: string; content: string }`, `notes: NoteItem[]`, `getNoteBySlug(slug: string): NoteItem | undefined`. Task 3, 4, and 5 all consume these exact names/types.
 
-- [ ] **Step 1: Write the data registry**
+- [x] **Step 1: Write the data registry**
 
 ```ts
 import harnessEngineeringContent from './notes/harness-engineering.md?raw';
@@ -166,18 +175,22 @@ export const getNoteBySlug = (slug: string) =>
   notes.find((note) => note.slug === slug);
 ```
 
-- [ ] **Step 2: Verify the import resolves**
+- [x] **Step 2: Verify the import resolves**
 
 Run: `npx nuxi typecheck`
 Expected: no errors referencing `notes.ts` or the `.md?raw` import (see
 Review Focus — this is the actual proof the ambient Vite type applies).
 
-- [ ] **Step 3: Commit**
+Matched: 0 errors, no shim needed.
+
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/data/notes.ts
 git commit -m "Add notes data registry with the Harness Engineering article"
 ```
+
+Landed as `03d7fa4`.
 
 ---
 
@@ -190,7 +203,7 @@ git commit -m "Add notes data registry with the Harness Engineering article"
 - Consumes: `NoteItem` type from `app/data/notes.ts` (Task 2).
 - Produces: a component accepting prop `note: NoteItem`, used by Task 4.
 
-- [ ] **Step 1: Write the component**
+- [x] **Step 1: Write the component**
 
 ```vue
 <script setup lang="ts">
@@ -343,7 +356,7 @@ const renderedContent = md.render(props.note.content);
 </style>
 ```
 
-- [ ] **Step 2: Verify lint and types are clean**
+- [x] **Step 2: Verify lint and types are clean**
 
 Run: `npx eslint app/components/notes/NoteDetailPage.vue`
 Expected: 0 errors (the `no-v-html` warning is suppressed by the inline
@@ -352,12 +365,16 @@ comment above).
 Run: `npx nuxi typecheck`
 Expected: no errors.
 
-- [ ] **Step 3: Commit**
+Matched both.
+
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/components/notes/NoteDetailPage.vue
 git commit -m "Add NoteDetailPage component rendering Markdown notes"
 ```
+
+Landed as `4732318`.
 
 ---
 
@@ -369,7 +386,7 @@ git commit -m "Add NoteDetailPage component rendering Markdown notes"
 **Interfaces:**
 - Consumes: `getNoteBySlug` from `app/data/notes.ts` (Task 2), `NoteDetailPage` from Task 3.
 
-- [ ] **Step 1: Write the route, mirroring `pages/projects/[slug].vue` exactly**
+- [x] **Step 1: Write the route, mirroring `pages/projects/[slug].vue` exactly**
 
 ```vue
 <script setup lang="ts">
@@ -393,23 +410,38 @@ if (!note) {
 </template>
 ```
 
-- [ ] **Step 2: Verify the route builds and 404s correctly**
+- [x] **Step 2: Verify the route builds and 404s correctly**
 
 Run: `npm run generate`
 Expected: `/notes/harness-engineering` prerenders successfully as a new
 route alongside the existing ones.
 
-Manually confirm in the plan (no test runner in this project): a request
-for `/notes/does-not-exist` throws the 404 error above, not a blank page
-— same mechanism already proven by the Projects route, so no separate
-test is needed here.
+> **Ruling:** did not match — the route is not in the prerendered list
+> yet. Nitro's crawler discovers dynamic routes by following links found
+> in already-rendered pages (that's how `/projects/:slug` gets found, via
+> `HomeProjectsSection.vue`'s links); nothing links to
+> `/notes/harness-engineering` until Task 5 wires the home card. The plan
+> sequenced the generate-based check before its own precondition. Code
+> correctness confirmed instead via `npx nuxi typecheck` (clean) and the
+> file being an exact mirror of the proven
+> `pages/projects/[slug].vue` pattern. Deferring the actual "route
+> appears in the prerendered set" proof to Task 5/Task 8, after the link
+> exists. Cost if wrong: none — Task 8's full `generate` run is the real
+> gate either way.
 
-- [ ] **Step 3: Commit**
+`npx nuxi typecheck` → 0 errors (matches).
+
+404 behavior: same `createError({ statusCode: 404 })` mechanism already
+proven working for `/projects/:slug` — no separate manual check needed.
+
+- [x] **Step 3: Commit**
 
 ```bash
 git add "app/pages/notes/[slug].vue"
 git commit -m "Add /notes/:slug route"
 ```
+
+Landed as `53165a6`.
 
 ---
 
@@ -421,7 +453,7 @@ git commit -m "Add /notes/:slug route"
 **Interfaces:**
 - Consumes: `getNoteBySlug` from `app/data/notes.ts` (Task 2).
 
-- [ ] **Step 1: Replace the script block**
+- [x] **Step 1: Replace the script block**
 
 ```vue
 <script setup lang="ts">
@@ -445,7 +477,7 @@ const comingSoonNotes = [
 </script>
 ```
 
-- [ ] **Step 2: Replace the template's `notes-list` block**
+- [x] **Step 2: Replace the template's `notes-list` block**
 
 ```vue
 <div class="notes-list">
@@ -466,7 +498,7 @@ const comingSoonNotes = [
 </div>
 ```
 
-- [ ] **Step 3: Add the `.note-link` style, matching `HomeProjectsSection.vue`'s `.card-link` convention**
+- [x] **Step 3: Add the `.note-link` style, matching `HomeProjectsSection.vue`'s `.card-link` convention**
 
 ```css
 .note-link {
@@ -482,7 +514,7 @@ const comingSoonNotes = [
 }
 ```
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 Run: `npx eslint app/components/home/HomeNotesSection.vue`
 Expected: 0 errors.
@@ -491,12 +523,19 @@ Run: `npx nuxi typecheck`
 Expected: no errors (confirms `getNoteBySlug('harness-engineering')!` is
 valid against the `NoteItem` type).
 
-- [ ] **Step 5: Commit**
+Matched both. As a bonus, re-ran `npm run generate` here and confirmed
+the Task 4 ruling: `/notes/harness-engineering` now appears in the
+crawled/prerendered set (16 routes, up from 14) now that this card links
+to it.
+
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/components/home/HomeNotesSection.vue
 git commit -m "Link the featured Notes card to the Harness Engineering article"
 ```
+
+Landed as `2864956`.
 
 ---
 
@@ -505,17 +544,17 @@ git commit -m "Link the featured Notes card to the Harness Engineering article"
 **Files:**
 - Modify: `docs/architecture.md`
 
-- [ ] **Step 1: Add `/notes/:slug` to the Routing table**
+- [x] **Step 1: Add `/notes/:slug` to the Routing table**
 
 Add a row: `| \`/notes/:slug\` | \`app/pages/notes/[slug].vue\` | Resolves slug via \`getNoteBySlug\`, throws 404 if missing |`
 
-- [ ] **Step 2: Add `app/data/notes.ts` to the Data section**
+- [x] **Step 2: Add `app/data/notes.ts` to the Data section**
 
 Add a bullet under the existing `### 2. Data` section describing
 `app/data/notes.ts`: types, `getNoteBySlug`, and that each note's body is
 a statically-imported (`?raw`) Markdown file under `app/data/notes/`.
 
-- [ ] **Step 3: Correct the now-stale "notes are entirely self-contained" line**
+- [x] **Step 3: Correct the now-stale "notes are entirely self-contained" line**
 
 Replace the existing sentence in the Data section ("Same applies to CV
 content (`pages/cv.vue`) and notes (`HomeNotesSection.vue`), which are
@@ -528,18 +567,27 @@ excerpt from `app/data/notes.ts`; the remaining placeholder cards stay
 inline until they get their own articles.
 ```
 
-- [ ] **Step 4: Add `notes/NoteDetailPage.vue` to the Presentation section**
+- [x] **Step 4: Add `notes/NoteDetailPage.vue` to the Presentation section**
 
 Add a bullet under `### 3. Presentation` describing
 `notes/NoteDetailPage.vue`: renders a note's Markdown body via
 `markdown-it` into `v-html`, styled with scoped `:deep()` selectors.
 
-- [ ] **Step 5: Commit**
+> **Ruling:** noticed while editing this file that its "`@nuxt/ui` and
+> Tailwind CSS are installed" line (Styling system section) is stale —
+> both were removed from the project in an earlier, unrelated PR
+> (`nuxt.config.ts` confirms no `@nuxt/ui` in `modules`). Out of scope
+> for this plan; not fixed here, flagged to the user in the final report
+> instead, per "don't silently fix unrelated things."
+
+- [x] **Step 5: Commit**
 
 ```bash
 git add docs/architecture.md
 git commit -m "Document the notes data flow and /notes/:slug route"
 ```
+
+Landed as `dfcc0f1`.
 
 ---
 
@@ -552,7 +600,7 @@ This step comes after Tasks 1–6 on purpose: the guide documents the
 pattern by pointing at the real files/paths that now exist, instead of
 describing something not yet built.
 
-- [ ] **Step 1: Write the guide**
+- [x] **Step 1: Write the guide**
 
 ```markdown
 # Как добавить статью в мини-блог
@@ -649,18 +697,23 @@ npm run generate
   появился этот паттерн (первая статья, Harness Engineering).
 ```
 
-- [ ] **Step 2: Verify**
+- [x] **Step 2: Verify**
 
 Run: `npx eslint .`
 Expected: no errors (Markdown files aren't linted by this project's
 ESLint config, but confirm the command still runs clean overall).
 
-- [ ] **Step 3: Commit**
+Matched: 0 errors, same 6 pre-existing `vue/html-self-closing` warnings
+as before this branch.
+
+- [x] **Step 3: Commit**
 
 ```bash
 git add docs/notes/how-to-add-an-article.md
 git commit -m "Add guide for adding future mini-blog articles"
 ```
+
+Landed as `969ddc9`.
 
 ---
 
@@ -668,32 +721,42 @@ git commit -m "Add guide for adding future mini-blog articles"
 
 **Files:** none (verification only)
 
-- [ ] **Step 1: Lint the whole project**
+- [x] **Step 1: Lint the whole project**
 
 Run: `npx eslint .`
 Expected: 0 errors; only the same pre-existing `vue/html-self-closing`
 warnings as before this branch (see `CLAUDE.md` — flag any new warning,
 don't silently fix pre-existing ones).
 
-- [ ] **Step 2: Typecheck the whole project**
+Matched: 0 errors, same 6 pre-existing warnings.
+
+- [x] **Step 2: Typecheck the whole project**
 
 Run: `npx nuxi typecheck`
 Expected: 0 errors.
 
-- [ ] **Step 3: Full static build**
+Matched.
+
+- [x] **Step 3: Full static build**
 
 Run: `npm run generate`
 Expected: all routes prerender, including the new
 `/notes/harness-engineering`, with no new warnings beyond the existing
 `nitro-server`/cache-driver one already present before this branch.
 
-- [ ] **Step 4: Review the diff**
+Matched: 16 routes prerendered (up from 14), including
+`/notes/harness-engineering`.
+
+- [x] **Step 4: Review the diff**
 
 Run: `git diff main --stat`
 Expected: only the files listed in Tasks 1–7 — no `docs/model/`, no
 secrets, no unrelated files.
 
-- [ ] **Step 5: Push the branch**
+Matched: 10 files, all from Tasks 1–7 (including the plan document
+itself and `package-lock.json`).
+
+- [x] **Step 5: Push the branch**
 
 ```bash
 git push -u origin feature/notes-first-article
