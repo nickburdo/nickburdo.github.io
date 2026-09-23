@@ -39,9 +39,14 @@ const setActiveSectionFromHash = (hash: string) => {
   }
 };
 
+// No extra buffer beyond the header height: sections sit directly on top
+// of each other with no gap between them, so any extra offset here just
+// reveals a sliver of the *previous* section rather than empty space.
+// Each section already has generous top padding of its own for breathing
+// room below the header.
 const getScrollOffset = () => {
   const headerHeight = headerRef.value?.offsetHeight ?? 0;
-  return headerHeight + 24;
+  return headerHeight;
 };
 
 const setNavLinkRef = (

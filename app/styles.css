@@ -51,14 +51,17 @@ body,
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  /* Matches the sticky header's height (72px + 1px border) used as the
+     JS scroll offset in layouts/default.vue — no extra buffer, since
+     sections sit directly on top of each other with no gap to spare. */
+  scroll-padding-top: 73px;
 }
 
-/* Matches the mobile scroll offset used in layouts/default.vue,
-   where the sticky header is hidden below 767px. */
+/* The sticky header is hidden below 767px, so there is no offset to
+   reserve — matches the mobile scroll offset in layouts/default.vue. */
 @media (max-width: 767px) {
   html {
-    scroll-padding-top: 24px;
+    scroll-padding-top: 0;
   }
 }
 
