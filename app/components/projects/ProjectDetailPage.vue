@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
     <section class="project-hero">
       <div class="project-container">
         <div class="project-hero-card">
-          <p class="project-eyebrow">Project</p>
+          <p class="eyebrow">Project</p>
           <h1>{{ project.title }}</h1>
           <p class="project-summary">{{ project.summary }}</p>
 
@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
           </div>
 
           <div class="project-stack-block">
-            <p class="project-eyebrow">Technology Stack</p>
+            <p class="eyebrow">Technology Stack</p>
             <div class="project-stack-list">
               <span
                 v-for="item in project.stack"
@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
     <section class="project-section project-section-soft">
       <div class="project-container">
         <div class="project-heading">
-          <p class="project-eyebrow">Screenshots</p>
+          <p class="eyebrow">Screenshots</p>
         </div>
 
         <figure
@@ -87,8 +87,7 @@ onBeforeUnmount(() => {
           class="project-shot project-shot-featured"
         >
           <button
-            class="project-shot-button"
-            :class="{ 'project-shot-button-featured': true }"
+            class="project-shot-button project-shot-button-featured"
             type="button"
             @click="openLightbox(featuredScreenshot)"
           >
@@ -121,7 +120,7 @@ onBeforeUnmount(() => {
     <section class="project-section">
       <div class="project-container project-grid">
         <article class="project-card">
-          <p class="project-eyebrow">Features</p>
+          <p class="eyebrow">Features</p>
           <ul class="project-list project-list-check">
             <li v-for="item in project.implemented" :key="item">
               <svg
@@ -137,7 +136,7 @@ onBeforeUnmount(() => {
         </article>
 
         <article class="project-card">
-          <p class="project-eyebrow">Engineering</p>
+          <p class="eyebrow">Engineering</p>
           <ul class="project-list project-list-arrow">
             <li v-for="item in project.technicalDecisions" :key="item">
               <svg
@@ -159,7 +158,7 @@ onBeforeUnmount(() => {
     <section class="project-section">
       <div class="project-container">
         <article class="project-card project-card-wide">
-          <p class="project-eyebrow">Lessons Learned</p>
+          <p class="eyebrow">Lessons Learned</p>
           <p class="project-lessons">{{ project.lessonsLearned }}</p>
         </article>
       </div>
@@ -221,15 +220,6 @@ onBeforeUnmount(() => {
 .project-hero-card,
 .project-card {
   padding: 36px;
-}
-
-.project-eyebrow {
-  margin: 0 0 14px;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.78rem;
-  font-weight: 800;
 }
 
 h1,

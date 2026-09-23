@@ -36,15 +36,6 @@
   box-shadow: 0 24px 70px var(--color-shadow);
 }
 
-.eyebrow {
-  margin-bottom: 14px;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
 h1 {
   margin: 0 0 20px;
   color: var(--color-heading);
