@@ -26,8 +26,9 @@ app.vue → layouts/default.vue (header + scroll-spy, most complex file)
 ```
 
 Project data: `app/data/projects.ts` (types + `getProjectBySlug`). Home
-cards / CV / notes content is inlined in components, not sourced from
-`data/projects.ts` — keep them in sync manually when editing.
+cards (`HomeProjectsSection.vue`) source title/stack/link from it; only the
+short blurb is home-specific. CV/notes content stays fully inlined and
+unrelated — keep in sync manually if it ever overlaps.
 
 ## Code style
 

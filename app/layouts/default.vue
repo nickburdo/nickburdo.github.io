@@ -28,6 +28,7 @@ const indicatorStyle = ref<Record<string, string>>({
   width: '0px',
 });
 let scrollFrame = 0;
+let resizeFrame = 0;
 let scrollEndTimer: ReturnType<typeof setTimeout> | null = null;
 let lockedSection: (typeof navItems)[number]['id'] | null = null;
 
@@ -190,9 +191,16 @@ const handleScroll = () => {
 };
 
 const handleResize = () => {
-  measureSections();
-  updateNavIndicator();
-  updateActiveSectionFromScroll();
+  if (resizeFrame) {
+    return;
+  }
+
+  resizeFrame = window.requestAnimationFrame(() => {
+    measureSections();
+    updateNavIndicator();
+    updateActiveSectionFromScroll();
+    resizeFrame = 0;
+  });
 };
 
 const scrollToSection = async (sectionId: string, updateHash = true) => {
@@ -229,6 +237,18 @@ const scrollToSection = async (sectionId: string, updateHash = true) => {
 const handleNavClick = async (event: MouseEvent, sectionId: string) => {
   event.preventDefault();
   await scrollToSection(sectionId);
+};
+
+// Retries across a few frames instead of assuming the target section
+// exists right after one nextTick — the destination page's DOM may not
+// have flushed yet on a route change into '/'.
+const scrollToSectionWhenReady = (sectionId: string, attempt = 0) => {
+  if (document.getElementById(sectionId) || attempt >= 10) {
+    scrollToSection(sectionId, false);
+    return;
+  }
+
+  requestAnimationFrame(() => scrollToSectionWhenReady(sectionId, attempt + 1));
 };
 
 const iconPathMap = {
@@ -281,9 +301,7 @@ watch(
     if (route.hash) {
       setActiveSectionFromHash(route.hash);
       const sectionId = route.hash.replace('#', '');
-      requestAnimationFrame(() => {
-        scrollToSection(sectionId, false);
-      });
+      scrollToSectionWhenReady(sectionId);
     } else {
       activeSection.value = 'home';
       updateActiveSectionFromScroll();
@@ -298,6 +316,9 @@ watch(
 onBeforeUnmount(() => {
   if (scrollFrame) {
     window.cancelAnimationFrame(scrollFrame);
+  }
+  if (resizeFrame) {
+    window.cancelAnimationFrame(resizeFrame);
   }
   if (scrollEndTimer) {
     clearTimeout(scrollEndTimer);

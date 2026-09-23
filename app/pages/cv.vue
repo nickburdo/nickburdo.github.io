@@ -3,7 +3,7 @@
     <section class="cv-hero">
       <div class="cv-container">
         <div class="cv-hero-card">
-          <p class="cv-eyebrow cv-hero-eyebrow">Nick Burdo</p>
+          <p class="eyebrow cv-hero-eyebrow">Nick Burdo</p>
           <h1>Senior Front-End Developer</h1>
           <p class="cv-subtitle">
             React · Next.js · TypeScript · AI Integration
@@ -19,7 +19,7 @@
     <section class="cv-section">
       <div class="cv-container">
         <article class="cv-panel cv-panel-stack">
-          <p class="cv-eyebrow">Professional Summary</p>
+          <p class="eyebrow">Professional Summary</p>
           <div class="cv-copy">
             <p>
               Senior Front-End Developer with 10+ years of commercial experience
@@ -34,7 +34,7 @@
             </p>
           </div>
 
-          <p class="cv-eyebrow">Technical Skills</p>
+          <p class="eyebrow">Technical Skills</p>
           <div class="skill-groups">
             <section
               v-for="group in skillGroups"
@@ -52,7 +52,7 @@
     <section class="cv-section cv-section-soft">
       <div class="cv-container">
         <div class="section-heading">
-          <p class="cv-eyebrow">Selected Projects</p>
+          <p class="eyebrow">Selected Projects</p>
           <h2>Experience presented through product work and delivery.</h2>
         </div>
 
@@ -83,7 +83,7 @@
     <section class="cv-section">
       <div class="cv-container">
         <div class="section-heading">
-          <p class="cv-eyebrow">Experience</p>
+          <p class="eyebrow">Experience</p>
           <h2>Commercial background across product, platform, and services.</h2>
         </div>
 
@@ -116,7 +116,7 @@
     <section class="cv-section">
       <div class="cv-container">
         <article class="cv-panel cv-panel-wide">
-          <p class="cv-eyebrow">Languages & Additional</p>
+          <p class="eyebrow">Languages & Additional</p>
           <div class="cv-grid cv-grid-info">
             <section>
               <h2>Languages</h2>
@@ -269,15 +269,6 @@ const jobs = [
   padding: 42px;
 }
 
-.cv-eyebrow {
-  margin: 0 0 14px;
-  color: var(--color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.78rem;
-  font-weight: 800;
-}
-
 .cv-hero-eyebrow {
   letter-spacing: 0.08em;
   text-transform: none;
@@ -375,7 +366,7 @@ h3 {
   gap: 0;
 }
 
-.cv-panel-stack .cv-eyebrow + .cv-copy + .cv-eyebrow {
+.cv-panel-stack .eyebrow + .cv-copy + .eyebrow {
   margin-top: 2.5rem;
 }
 

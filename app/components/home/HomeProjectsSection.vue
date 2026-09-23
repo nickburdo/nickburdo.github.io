@@ -19,29 +19,41 @@
 </template>
 
 <script setup lang="ts">
-const projects = [
+import { getProjectBySlug } from '~/data/projects';
+
+// Stack is sourced from data/projects.ts to avoid drifting from the
+// project detail pages; only the short marketing blurb is home-specific.
+const cardCopy = [
   {
-    title: 'Job Tracker',
-    stack: 'Nuxt 4 / Prisma / Supabase / PostgreSQL',
+    slug: 'job-tracker',
     description:
       'Application tracking tool with authentication, demo mode and row-level security.',
-    link: '/projects/job-tracker',
   },
   {
-    title: 'Health Monitor',
-    stack: 'Nuxt 4 / SVG charts / PWA',
+    slug: 'health-monitor',
     description:
       'Personal health metrics tracker with quick input, filters and lightweight visual reports.',
-    link: '/projects/health-monitor',
   },
   {
-    title: 'The Hood',
-    stack: 'Next.js / React / TypeScript',
+    slug: 'hood',
     description:
       'Recruitment platform experience with research into AI-powered candidate matching.',
-    link: '/projects/hood',
   },
-];
+] as const;
+
+const projects = cardCopy.map(({ slug, description }) => {
+  const project = getProjectBySlug(slug);
+  if (!project) {
+    throw new Error(`Unknown project slug in HomeProjectsSection: ${slug}`);
+  }
+
+  return {
+    title: project.title,
+    stack: project.stack.join(' / '),
+    description,
+    link: `/projects/${project.slug}`,
+  };
+});
 </script>
 
 <style scoped>
