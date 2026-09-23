@@ -33,7 +33,11 @@
 <script setup lang="ts">
 import { getNoteBySlug } from '~/data/notes';
 
-const featuredNote = getNoteBySlug('harness-engineering')!;
+const featuredNoteSlug = 'harness-engineering';
+const featuredNote = getNoteBySlug(featuredNoteSlug);
+if (!featuredNote) {
+  throw new Error(`Unknown note slug in HomeNotesSection: ${featuredNoteSlug}`);
+}
 
 const comingSoonNotes = [
   {

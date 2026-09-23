@@ -2,6 +2,9 @@ import harnessEngineeringContent from './notes/harness-engineering.md?raw';
 
 export type NoteItem = {
   slug: string;
+  // Shown on the home card. Must match the note's own `.md` file's
+  // top-level `# H1` (rendered as the article page's title) — nothing
+  // enforces this automatically, keep them in sync by hand.
   title: string;
   category: string;
   excerpt: string;
