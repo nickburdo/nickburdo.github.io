@@ -8,10 +8,17 @@
 
       <div class="notes-list">
         <article v-for="note in notes" :key="note.title" class="note-card">
-          <span class="note-badge">Coming soon</span>
+          <span v-if="!note.slug" class="note-badge">Coming soon</span>
           <span class="note-date">{{ note.category }}</span>
           <h3>{{ note.title }}</h3>
-          <p>{{ note.description }}</p>
+          <p>{{ note.excerpt }}</p>
+          <NuxtLink
+            v-if="note.slug"
+            :to="`/notes/${note.slug}`"
+            class="note-link"
+          >
+            Read note
+          </NuxtLink>
         </article>
       </div>
     </div>
@@ -19,25 +26,7 @@
 </template>
 
 <script setup lang="ts">
-const notes = [
-  {
-    category: 'AI Basics',
-    title: 'What is RAG?',
-    description:
-      'A short explanation of retrieval-augmented generation in simple words.',
-  },
-  {
-    category: 'AI Agents',
-    title: 'AI agents vs workflows',
-    description: 'Where fixed workflows end and agentic behavior begins.',
-  },
-  {
-    category: 'AI Tools',
-    title: 'MCP in simple words',
-    description:
-      'Why Model Context Protocol matters for tool-connected applications.',
-  },
-];
+import { notes } from '~/data/notes';
 </script>
 
 <style scoped>
@@ -101,6 +90,18 @@ h3 {
   color: var(--color-accent);
   font-size: 0.84rem;
   font-weight: 800;
+}
+
+.note-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--color-heading);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.note-link:hover {
+  color: var(--color-primary);
 }
 
 @media (max-width: 520px) {
