@@ -86,5 +86,5 @@ npm run generate
 ## См. также
 
 - `docs/architecture.md` — общее устройство слоя данных и презентации.
-- `docs/plans/notes-first-article-plan.md` — план, в рамках которого
-  появился этот паттерн (первая статья, Harness Engineering).
+- `docs/plans/notes-blog-scaling-plan.md` — план будущих доработок
+  мини-блога (индекс-страница, фильтры, сортировка по дате).

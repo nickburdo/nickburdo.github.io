@@ -4,12 +4,12 @@
 `PublishedNote` entries. Below that, the current home-page-only list is
 enough; building an index/filter UI for 2-3 cards is premature.
 
-**Status:** roadmap, not an execution-ready plan. Unlike
-`docs/plans/notes-first-article-plan.md`, this doesn't lock in exact code
-yet — several UX/design questions below are genuinely open and need a
-short discussion at kickoff, once there's enough real content to judge
-against. Treat each numbered section as its own future `brainstorming` →
-short design → implementation pass, not one big task list.
+**Status:** roadmap, not an execution-ready plan (unlike the task-by-task,
+code-complete plans this project otherwise uses once work starts) —
+several UX/design questions below are genuinely open and need a short
+discussion at kickoff, once there's enough real content to judge against.
+Treat each numbered section as its own future `brainstorming` → short
+design → implementation pass, not one big task list.
 
 ## Current state (context for whoever picks this up)
 
