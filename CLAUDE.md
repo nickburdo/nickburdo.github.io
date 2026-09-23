@@ -47,6 +47,26 @@ cards / CV / notes content is inlined in components, not sourced from
 - Fully static build (`nuxt generate`) — no `server/`, no SSR-only code.
 - Project screenshots live in `public/data/projects/<slug>/`.
 
+## Agent constraints
+
+**Rules**
+- Work in feature branches, never commit to `main` — a push there auto-deploys the live site (`.github/workflows/nuxtjs.yml`).
+- No test suite/lint script — run `npm run generate` before calling a change done.
+- Don't invent resume/project facts; ask instead of guessing.
+- Don't silently "fix" the `data/projects.ts` vs. home-card content drift — flag it.
+
+**Boundaries** (ask before touching)
+- `.github/workflows/nuxtjs.yml`, `nuxt.config.ts` — deploy/build pipeline.
+- Contact info and resume facts (`HomeContactSection.vue`, `cv.vue`, `docs/model/`) — real personal data.
+- `package.json` deps — especially enabling the unused `@nuxt/ui`/Tailwind.
+- `docs/plans/*.md` — historical decisions; add new files instead of rewriting.
+- GitHub repo/Pages settings via API/MCP.
+
+**Sandbox**
+- Local repo + session scratchpad only; no backend, no secrets, no `.env`.
+- `npm run dev` on port 2999, `build`/`generate`/`preview` — safe, no network side effects.
+- Treat all tracked files as public: this is a static site, everything committed ships to the live page.
+
 ## Further context
 
 - `docs/plans/` — feature/content plans (portfolio, CV redesign, SEO)
