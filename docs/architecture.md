@@ -52,15 +52,22 @@ The only real data module in the project:
   screenshots, implemented/technicalDecisions lists, lessons learned, links).
 - `getProjectBySlug(slug)` — used by `pages/projects/[slug].vue`.
 
-`app/data/notes.ts` mirrors the same pattern for mini-blog notes:
+`app/data/notes.ts` mirrors the same pattern for mini-blog notes, as a
+discriminated union rather than one flat type:
 
-- Type: `NoteItem` (`slug`, `title`, `category`, `excerpt`, `content`).
-- `notes: NoteItem[]` — each note's `content` is its Markdown body, pulled
-  in via a static `?raw` import of a file under `app/data/notes/`
+- `PublishedNote` (`slug: string`, `title`, `category`, `excerpt`,
+  `content: string`) — has a real page; `content` is its Markdown body,
+  pulled in via a static `?raw` import of a file under `app/data/notes/`
   (e.g. `app/data/notes/harness-engineering.md`). Slug always equals that
   file's name without the extension.
-- `getNoteBySlug(slug)` — used by `pages/notes/[slug].vue` and by the
-  featured card in `HomeNotesSection.vue`.
+- `UpcomingNote` (`slug: null`, `title`, `category`, `excerpt`,
+  `content: null`) — a "Coming soon" home-page card with no article yet.
+- `NoteItem = PublishedNote | UpcomingNote`; `notes: NoteItem[]` holds
+  both kinds together.
+- `getNoteBySlug(slug): PublishedNote | undefined` — narrows to
+  `PublishedNote` via a type-predicate `.find()`, so callers (the
+  `/notes/:slug` page) never see a possibly-`null` `content`. Used by
+  `pages/notes/[slug].vue`.
 - See `docs/notes/how-to-add-an-article.md` for the step-by-step process
   of adding a new note.
 
@@ -69,10 +76,11 @@ The only real data module in the project:
 short description) rather than reading from `data/projects.ts`. The two lists
 have drifted (e.g. stack strings differ). Editing project stack/summary text
 currently means updating both places. CV content (`pages/cv.vue`) stays
-fully self-contained. Notes (`HomeNotesSection.vue`) source the featured
-note's title, category, and excerpt from `app/data/notes.ts`; the
-remaining placeholder cards stay inline until they get their own
-articles.
+fully self-contained. Notes (`HomeNotesSection.vue`) do **not** have this
+problem: it renders `v-for` directly over the full `notes` array (both
+`PublishedNote` and `UpcomingNote` entries), so there is nothing separate
+to keep in sync — adding or publishing a note only means editing
+`app/data/notes.ts`.
 
 ### 3. Presentation — `app/components/`
 
@@ -84,11 +92,13 @@ articles.
   `project: ProjectItem` prop. Renders a featured screenshot, a gallery, and a
   lightbox (click to open, `Escape` to close via a `keydown` listener added
   in `onMounted`/removed in `onBeforeUnmount`).
-- `HomeNotesSection.vue`: one card is featured (real article, backed by
-  `data/notes.ts`), the rest are still inline "Coming soon" placeholders.
+- `HomeNotesSection.vue`: renders every entry in `data/notes.ts` as a
+  card; `PublishedNote` entries get a `/notes/:slug` link, `UpcomingNote`
+  entries get a "Coming soon" badge instead (no separate inline list).
 - `notes/NoteDetailPage.vue` — purely presentational, takes a
-  `note: NoteItem` prop. Renders the note's Markdown body to HTML via
-  `markdown-it` and injects it with `v-html`, styled through scoped
+  `note: PublishedNote` prop (not the wider `NoteItem` union — `content`
+  is guaranteed a real string). Renders the note's Markdown body to HTML
+  via `markdown-it` and injects it with `v-html`, styled through scoped
   `:deep()` selectors against the site's design tokens. The Markdown's
   own top-level `# H1` is the page title — there's no separate title
   element.

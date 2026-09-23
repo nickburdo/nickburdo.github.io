@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import MarkdownIt from 'markdown-it';
-import type { NoteItem } from '~/data/notes';
+import type { PublishedNote } from '~/data/notes';
 
 const props = defineProps<{
-  note: NoteItem;
+  note: PublishedNote;
 }>();
 
 // Content is our own trusted Markdown file, bundled at build time — not
