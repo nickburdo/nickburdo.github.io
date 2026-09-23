@@ -7,7 +7,19 @@
       </div>
 
       <div class="notes-list">
-        <article v-for="note in notes" :key="note.title" class="note-card">
+        <article class="note-card">
+          <span class="note-date">{{ featuredNote.category }}</span>
+          <h3>{{ featuredNote.title }}</h3>
+          <p>{{ featuredNote.excerpt }}</p>
+          <NuxtLink :to="`/notes/${featuredNote.slug}`" class="note-link">
+            Read note
+          </NuxtLink>
+        </article>
+        <article
+          v-for="note in comingSoonNotes"
+          :key="note.title"
+          class="note-card"
+        >
           <span class="note-badge">Coming soon</span>
           <span class="note-date">{{ note.category }}</span>
           <h3>{{ note.title }}</h3>
@@ -19,13 +31,11 @@
 </template>
 
 <script setup lang="ts">
-const notes = [
-  {
-    category: 'AI Basics',
-    title: 'What is RAG?',
-    description:
-      'A short explanation of retrieval-augmented generation in simple words.',
-  },
+import { getNoteBySlug } from '~/data/notes';
+
+const featuredNote = getNoteBySlug('harness-engineering')!;
+
+const comingSoonNotes = [
   {
     category: 'AI Agents',
     title: 'AI agents vs workflows',
@@ -101,6 +111,18 @@ h3 {
   color: var(--color-accent);
   font-size: 0.84rem;
   font-weight: 800;
+}
+
+.note-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--color-heading);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.note-link:hover {
+  color: var(--color-primary);
 }
 
 @media (max-width: 520px) {
