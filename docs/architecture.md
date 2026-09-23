@@ -12,6 +12,7 @@ everything must work as a static export.
 | `/` | `app/pages/index.vue` | One-page landing with anchor sections |
 | `/cv` | `app/pages/cv.vue` | Resume, content hardcoded in the component |
 | `/projects/:slug` | `app/pages/projects/[slug].vue` | Resolves slug via `getProjectBySlug`, throws 404 if missing |
+| `/notes/:slug` | `app/pages/notes/[slug].vue` | Resolves slug via `getNoteBySlug`, throws 404 if missing |
 | `/about` | `app/pages/about.vue` | Standalone page; **not linked from navigation** (nav points to `#about` anchor on `/` instead) |
 
 The landing page anchors (`#home #projects #notes #about #contact`) are the
@@ -51,13 +52,27 @@ The only real data module in the project:
   screenshots, implemented/technicalDecisions lists, lessons learned, links).
 - `getProjectBySlug(slug)` — used by `pages/projects/[slug].vue`.
 
+`app/data/notes.ts` mirrors the same pattern for mini-blog notes:
+
+- Type: `NoteItem` (`slug`, `title`, `category`, `excerpt`, `content`).
+- `notes: NoteItem[]` — each note's `content` is its Markdown body, pulled
+  in via a static `?raw` import of a file under `app/data/notes/`
+  (e.g. `app/data/notes/harness-engineering.md`). Slug always equals that
+  file's name without the extension.
+- `getNoteBySlug(slug)` — used by `pages/notes/[slug].vue` and by the
+  featured card in `HomeNotesSection.vue`.
+- See `docs/notes/how-to-add-an-article.md` for the step-by-step process
+  of adding a new note.
+
 **Known duplication:** the project cards on the home page
 (`HomeProjectsSection.vue`) define their own inline array (title, stack,
 short description) rather than reading from `data/projects.ts`. The two lists
 have drifted (e.g. stack strings differ). Editing project stack/summary text
-currently means updating both places. Same applies to CV content
-(`pages/cv.vue`) and notes (`HomeNotesSection.vue`), which are entirely
-self-contained and not backed by `data/`.
+currently means updating both places. CV content (`pages/cv.vue`) stays
+fully self-contained. Notes (`HomeNotesSection.vue`) source the featured
+note's title, category, and excerpt from `app/data/notes.ts`; the
+remaining placeholder cards stay inline until they get their own
+articles.
 
 ### 3. Presentation — `app/components/`
 
@@ -69,9 +84,14 @@ self-contained and not backed by `data/`.
   `project: ProjectItem` prop. Renders a featured screenshot, a gallery, and a
   lightbox (click to open, `Escape` to close via a `keydown` listener added
   in `onMounted`/removed in `onBeforeUnmount`).
-- `HomeNotesSection.vue` notes are placeholders (all marked "Coming soon");
-  there is no notes/blog content or routing yet, despite being part of the
-  original plan (see `docs/plans/portfolio_plan.md`).
+- `HomeNotesSection.vue`: one card is featured (real article, backed by
+  `data/notes.ts`), the rest are still inline "Coming soon" placeholders.
+- `notes/NoteDetailPage.vue` — purely presentational, takes a
+  `note: NoteItem` prop. Renders the note's Markdown body to HTML via
+  `markdown-it` and injects it with `v-html`, styled through scoped
+  `:deep()` selectors against the site's design tokens. The Markdown's
+  own top-level `# H1` is the page title — there's no separate title
+  element.
 
 ## Styling system
 
