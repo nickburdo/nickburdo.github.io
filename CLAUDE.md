@@ -50,9 +50,20 @@ cards / CV / notes content is inlined in components, not sourced from
 
 **Rules**
 - Work in feature branches, never commit to `main` — a push there auto-deploys the live site (`.github/workflows/nuxtjs.yml`).
-- No test suite/lint script — run `npm run generate` before calling a change done.
+- No test suite. See Definition of Done before calling a change complete.
 - Don't invent resume/project facts; ask instead of guessing.
 - Don't silently "fix" the `data/projects.ts` vs. home-card content drift — flag it.
+
+**Definition of Done**
+- `npx eslint .` — 0 errors.
+- `npx nuxi typecheck` — clean.
+- `npm run generate` — succeeds, all routes prerender.
+- `git diff` reviewed — no `docs/model/`, secrets, or unrelated files.
+- Change matches the requested scope — no scope creep.
+
+**On check failure**
+- Don't commit/push — fix it, or stop and report the failure to the user.
+- Pre-existing warnings unrelated to your change: flag, don't silently fix.
 
 **Boundaries** (ask before touching)
 - `.github/workflows/nuxtjs.yml`, `nuxt.config.ts` — deploy/build pipeline.
