@@ -1,4 +1,5 @@
 import harnessEngineeringContent from './notes/harness-engineering.md?raw';
+import harnessCheatsheetContent from './notes/harness-cheatsheet.md?raw';
 
 // A published note has a real page at /notes/<slug> and a Markdown body.
 export type PublishedNote = {
@@ -34,12 +35,12 @@ export const notes: NoteItem[] = [
     content: harnessEngineeringContent,
   },
   {
-    slug: null,
-    category: 'AI Agents',
+    slug: 'harness-cheatsheet',
     title: 'Harness Engineering — Quick-Start Cheat Sheet',
+    category: 'AI Agents',
     excerpt:
-      'It is a practical model for designing and analyzing a harness, not a formal industry standard.',
-    content: null,
+      'A practical guide to building a harness step by step: explore, draft, test on real tasks, and refine — with ready-to-use prompts and an example CLAUDE.md.',
+    content: harnessCheatsheetContent,
   },
   {
     slug: null,
